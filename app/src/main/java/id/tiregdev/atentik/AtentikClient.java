@@ -218,9 +218,10 @@ public interface AtentikClient {
     @FormUrlEncoded
     @Headers("Accept: application/json")
     @POST("editLogAbsenMahasiswa")
-    Call<List<object_log_mahasiswa>> editLogAbsenMahasiswa (@Header("Authorization") String auth,
-                                                             @Field("pilihan") String pilihan,
-                                                             @Field("nim") String nim);
+    Call<object_log_mahasiswa> editLogAbsenMahasiswa (@Header("Authorization") String auth,
+                                                             @Field("pilihans") String pilihans,
+                                                             @Field("nim") String nim,
+                                                            @Field("waktu_telat") int waktu_telat);
 
     @Headers("Accept: application/json")
     @GET("seluruhKelas")

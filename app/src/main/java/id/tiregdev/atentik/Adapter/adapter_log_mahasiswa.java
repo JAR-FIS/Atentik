@@ -8,14 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import id.tiregdev.atentik.Activity.CekToken;
+import id.tiregdev.atentik.AtentikClient;
 import id.tiregdev.atentik.Model.object_log_mahasiswa;
 import id.tiregdev.atentik.R;
+import id.tiregdev.atentik.Util.AtentikHelper;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by HVS on 14/03/18.
@@ -25,7 +31,7 @@ public class adapter_log_mahasiswa extends RecyclerView.Adapter<adapter_log_maha
 
     private List<object_log_mahasiswa> itemList;
     private Context context;
-    String tokens;
+    String tokens, pilihans;
 
     public adapter_log_mahasiswa(Context context, List<object_log_mahasiswa> itemList){
         this.itemList = itemList;
@@ -87,8 +93,10 @@ public class adapter_log_mahasiswa extends RecyclerView.Adapter<adapter_log_maha
     public class holder_log_mahasiswa extends RecyclerView.ViewHolder {
         public TextView nama, nim, jamHadir, telat, kompen;
         public Button btnSet;
+        public RadioButton rb1, rb2;
+        public RadioGroup RG;
 
-        public holder_log_mahasiswa(View itemView){
+        public holder_log_mahasiswa(final View itemView){
             super(itemView);
 
             nama = itemView.findViewById(R.id.nama);
@@ -97,11 +105,39 @@ public class adapter_log_mahasiswa extends RecyclerView.Adapter<adapter_log_maha
             telat = itemView.findViewById(R.id.telat);
             kompen = itemView.findViewById(R.id.kompen);
             btnSet = itemView.findViewById(R.id.set);
+            rb1 = itemView.findViewById(R.id.RBtepatWaktu);
+            rb2 = itemView.findViewById(R.id.RBtidakMasuk);
+            RG = itemView.findViewById(R.id.RG);
 
             btnSet.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Fitur ini akan saya sempurnakan, saya janji!", Toast.LENGTH_LONG).show();
+                public void onClick(final View v) {
+                    if (rb1.isChecked()) {
+                        pilihans = "1";
+                    } else if (rb2.isChecked()) {
+                        pilihans = "3";
+                    }
+                    Toast.makeText(v.getContext(), pilihans + ", " + nim.getText().toString() +", " + telat.getText().toString(), Toast.LENGTH_SHORT).show();
+                    AtentikClient client = AtentikHelper.getClient().create(AtentikClient.class);
+                    Call<object_log_mahasiswa> call = client.editLogAbsenMahasiswa("Bearer " + tokens, pilihans, nim.getText().toString(), Integer.parseInt(telat.getText().toString()));
+                    call.enqueue(new Callback<object_log_mahasiswa>() {
+                        @Override
+                        public void onResponse(Call<object_log_mahasiswa> call, Response<object_log_mahasiswa> response) {
+                            if (response.isSuccessful()) {
+                                Toast.makeText(v.getContext(), "Data berhasil diubah", Toast.LENGTH_SHORT).show();
+                            }
+                            else
+                            {
+                                Toast.makeText(v.getContext(), response.raw().toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<object_log_mahasiswa> call, Throwable t) {
+                            Toast.makeText(v.getContext(), t.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+//                    Toast.makeText(v.getContext(), "Fitur ini akan saya sempurnakan, saya janji!", Toast.LENGTH_LONG).show();
                 }
             });
         }

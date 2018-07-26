@@ -303,7 +303,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/totalMasuk"
-                            android:text="Total Masuk (jam)"
+                            android:text="Total Masuk"
                             android:textAlignment="center"
                             android:textColor="@color/putih"
                             app:smart_font="@string/fontBold" />
@@ -337,7 +337,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentStart="true"
                             android:layout_below="@+id/totalTelat"
-                            android:text="Total Keterlambatan (jam)"
+                            android:text="Total Keterlambatan"
                             android:textAlignment="center"
                             android:textColor="@color/putih"
                             android:textSize="12sp"
@@ -379,7 +379,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/totalIzin"
-                            android:text="Total Izin (jam)"
+                            android:text="Total Izin"
                             android:textAlignment="center"
                             android:textColor="@color/putih"
                             app:smart_font="@string/fontBold" />
@@ -418,7 +418,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/totalGakMasuk"
-                            android:text="Total Tidak Masuk (jam)"
+                            android:text="Total Tidak Masuk"
                             android:textAlignment="center"
                             android:textColor="@color/putih"
                             app:smart_font="@string/fontBold" />

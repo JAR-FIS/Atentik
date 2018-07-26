@@ -28,15 +28,15 @@ public class object_log_mahasiswa {
     private String nim;
     @SerializedName("status")
     private String status;
-    @SerializedName("pilihan")
-    private String pilihan;
+    @SerializedName("pilihans")
+    private String pilihans;
 
-    public String getPilihan() {
-        return pilihan;
+    public String getPilihans() {
+        return pilihans;
     }
 
-    public void setPilihan(String pilihan) {
-        this.pilihan = pilihan;
+    public void setPilihans(String pilihans) {
+        this.pilihans = pilihans;
     }
 
     public String getId_mhsw() {
